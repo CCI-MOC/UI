@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-
 {% block title %}Project Management{% endblock %}
-
 {% block content %}
 
   <div>
@@ -52,8 +50,22 @@
         {% for key,value in VM.fields.items %}
           <td  class="col-lg-1">{{ value }}</td>
         {% endfor %}
+	<td>	<button type="button" class="delVM btn btn-primary btn-lg" data-toggle="" data-target="">
+		<span class="delVM add-icon glyphicon glyphicon-trash text-center"></span>
+    	</button></tr>
       </tr>
     {% endfor %}
   </table>
 
+<script>
+$( document ).ready(function() {
+	$('.delVM').click(function() {
+		console.log("shishis")
+		console.log($(this))
+		var name = "my-seriver"
+                $.get('delete/'+name+'/', function (data) {
+                });
+	})
+})
+</script>
 {% endblock %}

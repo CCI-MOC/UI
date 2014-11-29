@@ -38,4 +38,3 @@ def delete():
 	    print("server %s deleted" % name)	
 
 
-list()

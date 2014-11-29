@@ -34,6 +34,8 @@ def market(request):
 
 	return render(request, 'market.html', {'market': resources})
 
+def delete(request):
+	api.delete()
 
 def manage(request):
 	# VMs should receive data from a call to nova.servers.list( w/ details of each instance )
