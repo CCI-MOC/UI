@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 import ui_api as api
 import time
-from forms import NameForm
+from forms import NameForm, EditForm, ControlForm
 
 def login(request):
 	return render(request, 'login.html', {'OCXlogin': 'OCXi'})
@@ -11,13 +11,7 @@ def create_user(request):
 	return render(request, 'create_user.html', {'register': 'create new user page.'})
 
 def projects(request):
-
 	projects = api.listTenants()	
-
-	#projects = [
-	#	{'name':'Project1', 'desc':'This is my first project.'},
-	#	{'name':'Project2', 'desc':'I should have a better name.'} ]
-
 	return render(request, 'projects.html', {'user_projects': projects})
 
 def market(request):
@@ -40,22 +34,55 @@ def manage(request):
 		form = NameForm(request.POST)
 		if form.is_valid():
 			VMname = form.cleaned_data['newVM']
-			return HttpResponseRedirect('/project_space/manage/create/'+VMname)
+			image = form.cleaned_data['imageName']
+			flavor = form.cleaned_data['flavorName']
+			return HttpResponseRedirect('/project_space/manage/create/'+VMname+';'+image+';'+flavor)
 	else:
 		VMs = api.listVMs()
+		images = api.listImages()
+		flavors = api.listFlavors()
 		tenant = api.getTenant()
-		return render(request, 'manage.html', {'project_VMs': VMs, 'tenant': tenant.name})
+		return render(request, 'manage.html', 
+		{'project_VMs':VMs, 'images':images, 'flavors':flavors, 'tenant':tenant.name})
 
 def deleteVM(request, VMname):
 	api.delete(VMname)
-	time.sleep(5)
-	#VMs = api.listVMs()	
-	#return render(request, 'manage.html', {'project_VMs': VMs})
+	time.sleep(10)
 	return HttpResponseRedirect('/project_space/manage')
+
+def createVM(request, VMname, imageName, flavorName):
+        api.createVM(VMname, imageName, flavorName)
+        time.sleep(15)
+        return HttpResponseRedirect('/project_space/manage')
 
 def createDefaultVM(request, VMname):
 	api.createDefault(VMname)
-	time.sleep(10)
+	time.sleep(15)
+	return HttpResponseRedirect('/project_space/manage')
+
+def edit(request):
+        if request.method == 'POST':
+                form = EditForm(request.POST)
+                if form.is_valid():
+                        VM_id = form.cleaned_data['VM_id']
+                        flavor_id = form.cleaned_data['flavor_id']	
+			api.editVM(VM_id, flavor_id)
+			return HttpResponseRedirect('/project_space/manage')
+        else:
+		return HttpResponseRedirect('/project_space/manage')
+
+def editControlVM(request):
+        if request.method == 'POST':
+                form = ControlForm(request.POST)
+                if form.is_valid():
+			VM_id = form.cleaned_data['VM_id']
+			print form.cleaned_data['action']
+			if(form.cleaned_data['action'] == 'start'):
+			  api.startVM(VM_id)
+			elif(form.cleaned_data['action'] == 'pause'):
+			  api.pauseVM(VM_id)
+			elif(form.cleaned_data['action'] == 'stop'):
+			  api.stopVM(VM_id)
 	return HttpResponseRedirect('/project_space/manage')
 
 def settings(request):
@@ -68,5 +95,4 @@ def modal(request):
 		{'compute': 'small'},
 		{'storage': 'BU'},
 		{'network': 'private'}]
-
 	return render(request, 'modal.html', {'options': options})
