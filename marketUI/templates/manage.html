@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Project Management{% endblock %}
+{% block title %} Project Management{% endblock %}
 
 {% block content %}
 
@@ -13,7 +13,7 @@
 
     <div style="font-size:large">
       <span class="label label-success">Storage:</span> EMC, HP <br>
-      <span class="label label-info">Compute:</span> BU, HU <br>
+      <span class="label label-info">Compute:</span>iiii BU, HU <br>
       <span class="label label-warning">Network:</span> pubNet1 (public), privNet1 (private) 
       
     </div>
@@ -27,8 +27,9 @@
   </div>
 
 <hr>
-  <table class="table table-hover table-striped">
-    <!-- HARDCODED ROW OF FIELDS -->
+  <table id="servers" class="table table-hover table-striped">
+
+  <!-- HARDCODED ROW OF FIELDS -->
     <thead>
       <tr style="font-size:medium; font-weight:bold">
         <th class="col-lg-2">Name</td>
@@ -71,6 +72,13 @@ $( document ).ready(function() {
                 });
 	})
 })
+$.ajax({
+  url: 'manage_async.html',
+  success: function(data) {
+	console.log(data)
+	$('body').html(data);
+  }
+});
 </script>
 {% include "createModal.html" %}
 {% include "editModal.html" %}

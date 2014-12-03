@@ -28,6 +28,13 @@ def market(request):
 
 def delete(request):
 	api.delete()
+def manage_async(request):
+	VMs = api.listVMs()
+	images = api.listImages()
+	flavors = api.listFlavors()
+	tenant = api.getTenant()
+	return render(request, 'manage_async.html', 
+	{'project_VMs':VMs, 'images':images, 'flavors':flavors, 'tenant':tenant.name})
 
 def manage(request):
 	if request.method == 'POST':
