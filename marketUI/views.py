@@ -61,15 +61,6 @@ def market(request):
 		{'name': 'HU-Storage','desc':'HU Storage', 'tag': 'storage', 'icon': 'http://openstack.org//themes/openstack/images/new-icons/openstack-object-storage-icon.png'} ]
 	return render(request, 'market.html', {'market': resources})
 
-def delete(request):
-	api.delete()
-def manage_async(request):
-	VMs = api.listVMs()
-	images = api.listImages()
-	flavors = api.listFlavors()
-	tenant = api.getTenant()
-	return render(request, 'manage_async.html', 
-	{'project_VMs':VMs, 'images':images, 'flavors':flavors, 'tenant':tenant.name})
 
 ###Project Management Page###
 
