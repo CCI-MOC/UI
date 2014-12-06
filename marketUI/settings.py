@@ -7,7 +7,6 @@ https://docs.djangoproject.com/en/1.7/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
-
 # session username and password - used for keystone authentication
 USERNAME = 'admin'
 PASSWORD = 'admin'
@@ -57,13 +56,12 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 SESSION_ENGINE = "django.contrib.sessions.backends.file"
-SESSION_FILE_PATH = "/home/logan/devstack/UI/session"
+SESSION_FILE_PATH = os.getcwd() +"/session"
 
 ROOT_URLCONF = 'marketUI.urls'
 

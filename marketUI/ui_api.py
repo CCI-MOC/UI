@@ -23,6 +23,7 @@ def listVMs():
 	for server in server_list:
 		vm = {
 		'name':server.name,
+		'vnc':server.get_vnc_console('novnc')[u'console'][u'url'],
 		'id':server.id,
  		'status':server.status,
  		'image':nova.images.get(server.image[u'id']).name,
