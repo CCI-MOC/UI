@@ -7,9 +7,12 @@ https://docs.djangoproject.com/en/1.7/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
+<<<<<<< HEAD
 # session username and password - used for keystone authentication
 USERNAME = 'admin'
 PASSWORD = 'admin'
+=======
+>>>>>>> UI/master
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os

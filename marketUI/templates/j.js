@@ -1,4 +1,3 @@
-//MARKETPLACE JS
 $( document ).ready(function() {
     $('.item').hide()
     $('.service').show()
