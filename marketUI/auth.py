@@ -6,33 +6,33 @@ import keystoneclient.v2_0.client as ksclient
 
 def loginUser(username, password):
         """
-	Create keystone client for user; called on login
-	"""
+        Create keystone client for user; called on login
+        """
         keystone = ksclient.Client(
-	        auth_url = 'http://10.0.2.15:5000/v2.0',
-		username = username,
-       		password = password)
-	return keystone
+                auth_url = 'http://10.0.2.15:5000/v2.0',
+                username = username,
+                       password = password)
+        return keystone
 
 def loginTenant(username, password, tenantName):
         """
-	Create keystone, nova, and glance clients for tenant; on tenant selection
-	"""
+        Create keystone, nova, and glance clients for tenant; on tenant selection
+        """
         keystone = ksclient.Client(
-	        auth_url = 'http://10.0.2.15:5000/v2.0',
-		username = username,
+                auth_url = 'http://10.0.2.15:5000/v2.0',
+                username = username,
                 password = password,
                 tenant_name = tenantName)
-	nova = nvclient.Client(
-	        auth_url = 'http://10.0.2.15:5000/v2.0',
-		username = username,
+        nova = nvclient.Client(
+                auth_url = 'http://10.0.2.15:5000/v2.0',
+                username = username,
                 api_key = password,
-		project_id = tenantName)
-	glance_endpoint = keystone.service_catalog.url_for(service_type='image')
+                project_id = tenantName)
+        glance_endpoint = keystone.service_catalog.url_for(service_type='image')
         glance = glclient.Client(
                 glance_endpoint,
                 token = keystone.auth_token)
-	return keystone, nova, glance
+        return keystone, nova, glance
 
 
 ##### OUTDATED SECTION - USEFUL FOR TESTING

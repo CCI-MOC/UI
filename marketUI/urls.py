@@ -3,7 +3,7 @@ from django.contrib import admin
 from marketUI.views import *
 
 urlpatterns = patterns('',
-    # login 
+    # login
     url(r'^login/register', register),
     url(r'^logout/', logout),
     url(r'^login/', login),
