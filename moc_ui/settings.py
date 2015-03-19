@@ -1,5 +1,5 @@
 """
-Django settings for marketUI project.
+Django settings for moc_ui project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -24,7 +24,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 TEMPLATE_DIRS = ( 
-	os.getcwd()+"/marketUI/templates",
+	os.getcwd()+"/moc_ui/templates",
 )
 
 # for request variables in templates
@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'moc_ui',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -53,7 +54,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+#    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -61,9 +62,9 @@ MIDDLEWARE_CLASSES = (
 SESSION_ENGINE = "django.contrib.sessions.backends.file"
 SESSION_FILE_PATH = os.getcwd() +"/session"
 
-ROOT_URLCONF = 'marketUI.urls'
+ROOT_URLCONF = 'moc_ui.urls'
 
-WSGI_APPLICATION = 'marketUI.wsgi.application'
+WSGI_APPLICATION = 'moc_ui.wsgi.application'
 
 
 # Database
@@ -95,5 +96,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
+STATICFILES_DIRS = (
+            os.path.join(BASE_DIR, "static"),
+                )
 

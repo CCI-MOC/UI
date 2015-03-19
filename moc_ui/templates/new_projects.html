@@ -3,6 +3,7 @@
 {% block content %}
 <div style="padding-left:100px; padding-right:100px;">
 
+  {% for project_name in project_endpoints %}
   <table class="table table-hover">
     <thead>
       <tr style="font-size:medium; font-weight:bold">
@@ -23,7 +24,10 @@
     {% endfor %}
     </form>
   </table>
+  {% endfor %}
 
+
+{% %}
 {% include "createProjModal.html" %}
 
 </div>

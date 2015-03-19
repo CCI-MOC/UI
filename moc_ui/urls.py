@@ -1,12 +1,12 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from marketUI.views import *
+from moc_ui.views import *
 
 urlpatterns = patterns('',
     # login 
-    url(r'^login/register', register),
-    url(r'^logout/', logout),
-    url(r'^login/', login),
+    url(r'^login', login),
+    url(r'^register', register),
+    url(r'^logout', logout),
     # projects
     url(r'^projects/enterProject', enterProject),
     url(r'^projects/create', createProject),
@@ -27,5 +27,7 @@ urlpatterns = patterns('',
     url(r'^project_space/manage', manage),
     # default
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', login)
+    url(r'^$', front_page),
+
+    url(r'^clusters', clusters),
 )

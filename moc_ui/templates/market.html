@@ -1,28 +1,16 @@
 <!DOCTYPE html>
-<html>
-<head>
-    {% include "header.html" %}
+{% extends "base.html" %}
+    {% load staticfiles %}
 
-    <title>{% block title %}Marketplace{% endblock %}</title>
-    <style>
-    {% block css %}
-    {% include "style.css" %}
-    {% endblock %}
-    </style>
-    <script>
+    {% block title %}Marketplace{% endblock %}
+
     {% block js %}
-    {% include "j.js" %}
-    {% endblock %}</script>
-
-</head>
-
-<body>
+        {% include "externalJS.html" %}
+        <script src="{% static "moc_ui/j.js" %}" ></script>
+    {% endblock %}
 
 
-
-    <h1>
-        Welcome to the Marketplace
-    </h1>
+    <h1>Welcome to the Marketplace</h1>
 
     <nav class="navbar navbar-default nb" role="navigation">
         <!-- Collect the nav links, forms, and other content for toggling -->
