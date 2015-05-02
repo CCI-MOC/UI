@@ -138,7 +138,7 @@ class DeleteClusterProject(forms.ModelForm):
 class CreateVM(forms.Form):
     name = forms.CharField()
 
-    def create(self):
+    #def create(self):
 
     
 
@@ -148,3 +148,5 @@ class DeleteVM(forms.Form):
 class ControlVM(forms.Form):
     name = forms.CharField()
     action = forms.CharField()
+
+
