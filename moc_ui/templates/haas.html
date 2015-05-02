@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+    {% load staticfiles %}
+
+    {% block title %}HaaS{% endblock %}
+
+{% block content %}
+  <div class="row vert-padded"></div>
+
+<div class="container-fluid">
+    <div class="col-md-8 col-centered">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default floating-block">
+
+              <div class="panel-heading"> 
+                   
+                      <div class="row">  
+   			<iframe id="haas_iframe" height="750px" frameBorder="0" width="100%" src="http://0.0.0.0:8000" />
+   		      </div	
+		   
+		</div>
+	   </div>
+	</div>
+     </div>
+  </div>
+{% endblock%}
