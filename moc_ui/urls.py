@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.views.generic import TemplateView
 from views import *
 
 ##Template Rendering and querying state
@@ -20,6 +21,8 @@ urlpatterns += patterns('',
     ## DB dusting
     url(r'^create/(?P<object_class>.+)', create_object),
     url(r'^delete/(?P<object_class>.+)', delete_object),
+    # haas plugin
+    url(r'^haas',haas),
 #    # vm control 
 #    url(r'^createVM', createVM),
 #    url(r'^deleteVM', deleteVM),

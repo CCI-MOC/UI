@@ -200,3 +200,8 @@ def control_vm(request, action, vm_name):
     # check that the user has privalidge on vm
     # actually do the action
         pass
+
+
+#Haas Plugin page
+def haas(request):
+    return render(request, 'haas.html')
