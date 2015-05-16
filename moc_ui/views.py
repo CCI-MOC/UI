@@ -51,11 +51,16 @@ def helps(request):
 
 def projects(request):
 
-    tenant = api.joinTenant(request, 'ui')
-    project_name =  models.ClusterProject.objects.all()
-    project_list = []
-    for project in project_name:
-        project_list += [{'name': project}]
+    # tenant = api.joinTenant(request, 'ui')
+    tenant = api.apiJoinTenant('admin','xuhang0507','admin')
+
+    project_list = api.listTenants()
+    # project_name =  models.ClusterProject.objects.all()
+
+    # project_list = []
+    # for project in project_name:
+    #     project_list += [{'name': project}]
+
     return render(request, 'projects.html', 
                   {'project_list': project_list, 
                    'project_modals': html.project_modals(request)

@@ -10,15 +10,50 @@ from keystoneclient import session
 from novaclient import client
 
 # Socks
-import socks
-import socket
+# import socks
+# import socket
 
 # Set up SOCKS proxy usage:
-s = socks.socksocket()
+# s = socks.socksocket()
 
 # Set up the Port number as the one used for connecting Harvard Cluster
-socks.set_default_proxy(socks.SOCKS5, 'localhost', 5507)
-socket.socket = socks.socksocket
+# socks.set_default_proxy(socks.SOCKS5, 'localhost', 5507)
+# socket.socket = socks.socksocket
+
+# User is an admin in devstack environment, therefore, instead of loginTenant, we use LoginUser
+def loginUser(username, password):
+        """
+	Create keystone client for user; called on login
+	"""
+	print 'lucas-test-auth-loginUser'
+	
+        keystone = ksclient.Client(
+	        auth_url = 'http://10.0.2.15:5000/v2.0',
+		username = username,
+       		password = password)
+    	print 'lucas-test-auth-loginUser-succesfully'
+	return keystone
+
+def authLoginTenant(username, password, tenantName):
+        """
+	Create keystone, nova, and glance clients for tenant; on tenant selection
+	"""
+        keystone = ksclient.Client(
+	        auth_url = 'http://10.0.2.15:5000/v2.0',
+		username = username,
+                password = password,
+                tenant_name = tenantName)
+	nova = nvclient.Client(
+	        auth_url = 'http://10.0.2.15:5000/v2.0',
+		username = username,
+                api_key = password,
+		project_id = tenantName)
+	glance_endpoint = keystone.service_catalog.url_for(service_type='image')
+        glance = glclient.Client(
+                glance_endpoint,
+                token = keystone.auth_token)
+	return keystone, nova, glance
+
 
 # Log User to his/her associated Tenant 
 def loginTenant(request, tenant_name):
@@ -30,10 +65,10 @@ def loginTenant(request, tenant_name):
 	password = request.session['password']
 
 	print 'lucas-test-auth-loginTenant'
-	keystone = ksclient.Client(auth_url = 'http://140.247.152.207:5000/v2.0', username = username,
+	keystone = ksclient.Client(auth_url = 'http://10.0.2.15:5000/v2.0', username = username,
 		password = password, tenant_name = tenant_name)
 	print 'lucas-test-auth-loginTenant-succesfully'
-	nova = nvclient.Client(auth_url = 'http://140.247.152.207:5000/v2.0',
+	nova = nvclient.Client(auth_url = 'http://10.0.2.15:5000/v2.0',
 		username = username,
 		api_key = password,
 		project_id = tenant_name)
@@ -44,14 +79,14 @@ def loginTenant(request, tenant_name):
 def get_keystone(request, tenant_name):
 	username = request.session['username']
 	password = request.session['password']
-	keystone = ksclient.Client(auth_url = 'http://140.247.152.207:5000/v2.0', username = username,
+	keystone = ksclient.Client(auth_url = 'http://10.0.2.15:5000/v2.0', username = username,
 		password = password, tenant_name = tenant_name)
 	return keystone
 
 def get_nova(request, tenant_name):
 	username = request.session['username']
 	password = request.session['password']
-	nova = nvclient.Client(auth_url = 'http://140.247.152.207:5000/v2.0',
+	nova = nvclient.Client(auth_url = 'http://10.0.2.15:5000/v2.0',
 		username = username,
 		api_key = password,
 		project_id = tenant_name)

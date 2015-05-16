@@ -1,16 +1,25 @@
-from auth import  loginTenant, get_nova, get_keystone, get_glance
+from auth import  loginTenant, get_nova, get_keystone, get_glance,loginUser,authLoginTenant
 from os import environ as env
 import views
 import time
 
 
-def login(username, password, request):
+def login(username, password):
 	print 'lucas-test-ui-api-login'
 	"""
 	Create keystone client for user
 	"""
 	global keystone
-	keystone = loginUser(username, password, request)
+	keystone = loginUser(username, password)
+
+
+def apiJoinTenant(username, password, tenantName):
+	"""
+	Create keystone client for specified tenant;
+	User's credentials already authenticated on login
+	"""
+        global keystone, nova, glance
+        keystone, nova, glance = authLoginTenant(username, password, tenantName)
 
 def joinTenant(request, tenant_name):
 	"""
